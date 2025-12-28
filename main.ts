@@ -1,8 +1,8 @@
 input.onButtonPressed(Button.A, function () {
-servo = Math.clamp(90, 180, servo+5)
+servo = Math.clamp(30, 240, servo - 30)
 })
 input.onButtonPressed(Button.B, function () {
-    servo = Math.clamp(90, 180, servo - 5)
+    servo = Math.clamp(30, 240, servo + 30)
 })
 let WIFIgroup=153
 let turn = 0
@@ -32,7 +32,7 @@ basic.forever(function () {
     // read values
     X = pins.analogReadPin(AnalogReadWritePin.P2)
     Y = pins.analogReadPin(AnalogReadWritePin.P1)
-    serial.writeString("X=" + X + "; Y=" + Y)
+    //serial.writeString("X=" + X + "; Y=" + Y)
     // to percentage
     forward = (X - 512) * 100 / 512
     // to percentage
@@ -44,7 +44,7 @@ basic.forever(function () {
     if (Math.abs(turn) < turngap) {
         turn = 0
     }
-    serial.writeString("F=" + forward + "; t=" + turn)
+    //serial.writeString("F=" + forward + "; t=" + turn)
 
     // tank mix
     // levý motor
@@ -58,6 +58,6 @@ lmotor = Math.clamp(-100, 100, lmotor)
     radio.sendValue("ml", lmotor)
     radio.sendValue("clamp", servo)
     radio.sendString("SYNC")
-    serial.writeString("R = " + rmotor + " L = " + lmotor + " SRV = " + servo)
-    serial.writeLine(" .")
+    //serial.writeString("R = " + rmotor + " L = " + lmotor + " SRV = " + servo)
+    //serial.writeLine(" .")
 })
