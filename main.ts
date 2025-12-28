@@ -4,7 +4,7 @@ servo = Math.clamp(90, 180, servo+5)
 input.onButtonPressed(Button.B, function () {
     servo = Math.clamp(90, 180, servo - 5)
 })
-
+let WIFIgroup=153
 let turn = 0
 let forward = 0
 let Y = 0
@@ -15,10 +15,11 @@ let forwardgap = 3
 let turngap = 3
 let servo = 120
 serial.writeString("hello")
-radio.setGroup(153)
+radio.setGroup(WIFIgroup)
 let X0 = pins.analogReadPin(AnalogReadWritePin.P1)
 let Y0 = pins.analogReadPin(AnalogReadWritePin.P2)
 for (let index = 5; index >= 0; index--) {
+radio.sendString("START")
     basic.showNumber(index)
     pins.digitalWritePin(DigitalPin.P12, 1)
     basic.pause(50)
@@ -56,6 +57,7 @@ lmotor = Math.clamp(-100, 100, lmotor)
     radio.sendValue("mr", rmotor)
     radio.sendValue("ml", lmotor)
     radio.sendValue("clamp", servo)
+    radio.sendString("SYNC")
     serial.writeString("R = " + rmotor + " L = " + lmotor + " SRV = " + servo)
     serial.writeLine(" .")
 })
